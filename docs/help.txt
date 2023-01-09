@@ -1,0 +1,11 @@
+USAGE
+    ./project [OPTIONS]...
+
+DESCRIPTION
+    Project description.
+
+OPTIONS
+    -h, --help
+        Display this help message and exit.
+    -a, --anotheroption
+        Another option.
