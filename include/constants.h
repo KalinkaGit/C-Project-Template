@@ -11,8 +11,7 @@
     /**
      * @brief Program exit codes.
      */
-    typedef enum
-    {
+    typedef enum {
         EXIT_SUCCESS = 0,    /**< Program ran successfully. */
         EXIT_FAILURE = 84    /**< Program failed. */
     } exit_code_t;
@@ -20,12 +19,10 @@
     /**
      * @brief Function return codes.
      */
-    typedef enum
-    {
+    typedef enum {
         RETURN_SUCCESS = 0,   /**< Function ran successfully. */
         RETURN_FAILURE = -1,  /**< Function failed. */
-        RETURN_NOW = 1        /**< Function ran successfully but program 
-                                   should not continue. */
+        RETURN_NOW = 1        /**< Function ran successfully, program stop. */
     } return_code_t;
 
 #endif /* !CONSTANTS_H_ */

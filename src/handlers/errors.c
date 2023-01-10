@@ -13,5 +13,7 @@
 
 return_code_t handle_errors(int argc, char *argv[])
 {
-    return (EXIT_SUCCESS);
+    if (argc < 2)
+        return (RETURN_FAILURE);
+    return (RETURN_SUCCESS);
 }

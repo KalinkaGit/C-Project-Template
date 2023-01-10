@@ -13,5 +13,5 @@
 
 return_code_t handle_args(int argc, char *argv[])
 {
-    return (EXIT_SUCCESS);
+    return (RETURN_SUCCESS);
 }
