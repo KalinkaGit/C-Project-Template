@@ -13,8 +13,13 @@
 #include "handlers.h"
 #include "my.h"
 
-return_code_t handle_errors(char *envp[])
+return_code_t handle_errors(int argc, char *envp[])
 {
+    if (argc < 2) {
+        write(2,
+        "Usage: ./my_paint <path/to/save.jpg> [<path/to/load/open.jpg]\n", 63);
+        return (CRETURN_FAILURE);
+    }
     if (!envp)
         return (CRETURN_FAILURE);
     for (int i = 0; envp[i]; i++) {

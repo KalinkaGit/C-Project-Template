@@ -35,6 +35,8 @@
         sfSprite *draw_zone;
         tool_t tool;
         sfColor color;
+        char *save_path;
+        char *open_path;
         int size;
     } paint_t;
 

@@ -18,7 +18,7 @@
      * @param envp Arguments vector.
      * @return int 0 if handling was successful, -1 otherwise.
      */
-    return_code_t handle_errors(char *envp[]);
+    return_code_t handle_errors(int argc, char *envp[]);
 
     /**
      * @brief Handle the window events.

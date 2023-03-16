@@ -15,36 +15,7 @@
 #include <SFML/System/Vector2.h>
 #include <stdlib.h>
 
-void init_color_btns(paint_t *paint, color_btn_t buttons[])
-{
-    for (int i = 0; i < 6; i++) {
-        sfRectangleShape_setSize(buttons[i].rect, (sfVector2f){20, 20});
-        sfRectangleShape_setFillColor(buttons[i].rect, buttons[i].color);
-        sfRectangleShape_setPosition(buttons[i].rect,
-        (sfVector2f){300 + 25 * i, 45});
-        sfRectangleShape_setOutlineColor(buttons[i].rect,
-        sfColor_fromRGB(230, 230, 230));
-        sfRectangleShape_setOutlineThickness(buttons[i].rect, 1);
-        paint->gui->buttons[6 + i] = malloc(sizeof(button_t));
-        paint->gui->buttons[6 + i]->btn = buttons[i].rect;
-        paint->gui->buttons[6 + i]->state = (i == 1) ? BTN_CLICKED : BTN_NONE;
-        paint->gui->buttons[6 + i]->color = buttons[i].color;
-    }
-}
-
-void create_color_buttons(paint_t *paint)
-{
-    color_btn_t buttons[] = {
-        { .rect = sfRectangleShape_create(), .color = sfWhite },
-        { .rect = sfRectangleShape_create(), .color = sfBlack },
-        { .rect = sfRectangleShape_create(), .color = sfRed },
-        { .rect = sfRectangleShape_create(), .color = sfGreen },
-        { .rect = sfRectangleShape_create(), .color = sfBlue },
-        { .rect = sfRectangleShape_create(),
-        .color = sfColor_fromRGB(128, 0, 128) }
-    };
-    init_color_btns(paint, buttons);
-}
+void create_color_buttons(paint_t *paint);
 
 void check_btns(paint_t *paint, sfRectangleShape *btns[], int i)
 {
@@ -66,6 +37,37 @@ sfRectangleShape **get_btns(void)
     return (btns);
 }
 
+void draw_file_text(paint_t *paint, sfRectangleShape *btn, int i)
+{
+    sfText *text = sfText_create();
+    sfText_setFont(text, paint->gui->font);
+    sfText_setCharacterSize(text, 20);
+    sfText_setColor(text, sfBlack);
+    sfText_setString(text, (i == 0) ? "New" : (i == 1) ? "Open" : "Save");
+    sfVector2f pos = sfRectangleShape_getPosition(btn);
+    sfVector2f size = sfRectangleShape_getSize(btn);
+    sfText_setPosition(text, (sfVector2f){8,
+    pos.y + size.y / 2 - 12});
+    paint->gui->texts[i] = text;
+}
+
+void create_file_buttons(paint_t *paint)
+{
+    paint->gui->texts = malloc(sizeof(sfText *) * 3);
+    sfRectangleShape **btns = get_btns();
+    sfVector2f sizes[] = {{100, 30}, {100, 30}, {100, 30}};
+    sfVector2f positions[] = {{0, 30}, {0, 60}, {0, 90}};
+    for (int i = 15; i < 18; i++) {
+        paint->gui->buttons[i] = malloc(sizeof(button_t));
+        paint->gui->buttons[i]->btn = btns[i - 15];
+        paint->gui->buttons[i]->state = BTN_NONE;
+        sfRectangleShape_setSize(btns[i - 15], sizes[i - 15]);
+        sfRectangleShape_setFillColor(btns[i - 15], sfGreen);
+        sfRectangleShape_setPosition(btns[i - 15], positions[i - 15]);
+        draw_file_text(paint, btns[i - 15], i - 15);
+    }
+}
+
 return_code_t init_buttons(paint_t *paint)
 {
     if (!paint) return (CRETURN_FAILURE);
@@ -84,8 +86,8 @@ return_code_t init_buttons(paint_t *paint)
         if (i >= 3) {
             sfRectangleShape_setOutlineColor(btns[i], outlineColor);
             sfRectangleShape_setOutlineThickness(btns[i], outlineThickness);
-        }
-        check_btns(paint, btns, i);
+        } check_btns(paint, btns, i);
     }
+    create_file_buttons(paint);
     create_color_buttons(paint); return (CRETURN_SUCCESS);
 }

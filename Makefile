@@ -20,7 +20,8 @@ SRC_HANDLERS 	:= handlers/events.c \
 
 SRC_INIT		:= init/paint.c \
 				   init/buttons.c \
-				   init/textures.c
+				   init/textures.c \
+				   init/color_btns.c
 
 SRC_UTILS		:= utils/check_state.c \
 				   utils/mouse_click.c

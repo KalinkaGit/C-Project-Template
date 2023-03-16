@@ -6,6 +6,7 @@
 */
 
 #include "constants.h"
+#include "gui.h"
 #include "handlers.h"
 #include "paint.h"
 #include <SFML/Graphics/RectangleShape.h>
@@ -22,10 +23,16 @@ return_code_t handle_mouse_click(paint_t *paint)
     sfVector2i mouse_pos = sfMouse_getPositionRenderWindow(
         paint->window->win);
     sfVector2f window_size = paint->window->size;
-    for (int i = 0; i < 14; i++) {
+    btn_state_t state_btn_file = paint->gui->buttons[0]->state;
+    for (int i = 15; i < 18; i++) {
         mouse_click(paint, mouse_pos, i, window_size);
     }
-    paint->gui->buttons[0]->state = BTN_NONE;
+    for (int i = 0; i < 14; i++) {
+        mouse_click(paint, mouse_pos, i, window_size);
+        if (i != 0 && paint->gui->buttons[i]->state == BTN_CLICKED
+        && state_btn_file == BTN_CLICKED)
+            paint->gui->buttons[0]->state = BTN_NONE;
+    }
     return (CRETURN_SUCCESS);
 }
 

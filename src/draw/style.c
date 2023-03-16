@@ -6,6 +6,29 @@
 */
 
 #include "paint.h"
+#include <SFML/Graphics/Sprite.h>
+
+void draw_textures(paint_t *paint)
+{
+    sfSprite *pencil = sfSprite_create();
+    sfSprite_setTexture(pencil, paint->gui->textures[0], sfTrue);
+    sfSprite_setPosition(pencil, (sfVector2f){34, 55});
+    sfSprite_setScale(pencil, (sfVector2f){0.1, 0.1});
+    sfRenderWindow_drawSprite(paint->window->win, pencil, NULL);
+    sfSprite_destroy(pencil);
+    sfSprite *eraser = sfSprite_create();
+    sfSprite_setTexture(eraser, paint->gui->textures[1], sfTrue);
+    sfSprite_setPosition(eraser, (sfVector2f){120, 50});
+    sfSprite_setScale(eraser, (sfVector2f){0.018, 0.018});
+    sfRenderWindow_drawSprite(paint->window->win, eraser, NULL);
+    sfSprite_destroy(eraser);
+    sfSprite *pad = sfSprite_create();
+    sfSprite_setTexture(pad, paint->gui->textures[2], sfTrue);
+    sfSprite_setPosition(pad, (sfVector2f){195, 40});
+    sfSprite_setScale(pad, (sfVector2f){0.15, 0.15});
+    sfRenderWindow_drawSprite(paint->window->win, pad, NULL);
+    sfSprite_destroy(pad);
+}
 
 void draw_edit_style(paint_t *paint)
 {
@@ -23,10 +46,5 @@ void draw_edit_style(paint_t *paint)
         sfText_destroy(text[i]);
     }
 
-    sfSprite *pencil = sfSprite_create();
-    sfSprite_setTexture(pencil, paint->gui->textures[0], sfTrue);
-    sfSprite_setPosition(pencil, (sfVector2f){100, 20});
-    sfSprite_setScale(pencil, (sfVector2f){0.1, 0.1});
-    sfRenderWindow_drawSprite(paint->window->win, pencil, NULL);
-    sfSprite_destroy(pencil);
+    draw_textures(paint);
 }

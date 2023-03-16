@@ -51,7 +51,16 @@ return_code_t init_paint_gui(paint_t *paint)
     return (CRETURN_SUCCESS);
 }
 
-paint_t *init_paint(void)
+return_code_t init_paint_os(paint_t *paint, int argc, char *argv[])
+{
+    if (!paint) return (CRETURN_FAILURE);
+    paint->save_path = argv[1];
+    if (argc == 3)
+        paint->open_path = argv[2];
+    return (CRETURN_SUCCESS);
+}
+
+paint_t *init_paint(int argc, char *argv[])
 {
     paint_t *paint = malloc(sizeof(paint_t));
     if (!paint) return (NULL);
@@ -66,11 +75,11 @@ paint_t *init_paint(void)
         "My Paint", sfClose | sfResize, NULL);
     if (!paint->window->win) return (NULL);
     paint->window->size = (sfVector2f){1600, 800};
-    paint->gui = malloc(sizeof(gui_t));
-    if (!paint->gui) return (NULL);
-    paint->gui->buttons = malloc(sizeof(button_t *) * 15);
+    paint->gui = malloc(sizeof(gui_t)); if (!paint->gui) return (NULL);
+    paint->gui->buttons = malloc(sizeof(button_t *) * 18);
     if (!paint->gui->buttons) return (NULL);
     paint->gui->font = sfFont_createFromFile("assets/fonts/arial.ttf");
     if (init_paint_gui(paint) == CRETURN_FAILURE) return (NULL);
+    if (init_paint_os(paint, argc, argv) == CRETURN_FAILURE) return (NULL);
     return (paint);
 }

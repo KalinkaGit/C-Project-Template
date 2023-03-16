@@ -22,6 +22,8 @@
 #include "paint.h"
 #include "handlers.h"
 
+return_code_t draw_file_dropdown(paint_t *paint);
+
 return_code_t draw_on_texture(paint_t *paint)
 {
     if (!paint) return (CRETURN_FAILURE);
@@ -63,12 +65,16 @@ return_code_t draw_file_menu(paint_t *paint)
 
     if (paint->gui->buttons[0]->state == BTN_CLICKED) {
         sfRectangleShape *file_menu = sfRectangleShape_create();
-        sfRectangleShape_setSize(file_menu, (sfVector2f){200, 200});
-        sfRectangleShape_setFillColor(file_menu,
-        sfColor_fromRGB(200, 200, 200));
+        sfRectangleShape_setSize(file_menu, (sfVector2f){100, 90});
+        sfRectangleShape_setFillColor(file_menu, sfWhite);
         sfRectangleShape_setPosition(file_menu, (sfVector2f){0, 30});
         sfRenderWindow_drawRectangleShape(paint->window->win, file_menu, NULL);
         sfRectangleShape_destroy(file_menu);
+        if (draw_file_dropdown(paint) == CRETURN_FAILURE)
+            return (CRETURN_FAILURE);
+        for (int i = 0; i < 3; i++)
+        sfRenderWindow_drawText(paint->window->win,
+        paint->gui->texts[i], NULL);
     }
 
     return (CRETURN_SUCCESS);
@@ -87,9 +93,9 @@ return_code_t paint_loop(paint_t *paint)
         return (CRETURN_FAILURE);
     if (draw_gui(paint) == CRETURN_FAILURE)
         return (CRETURN_FAILURE);
-    if (check_drawing(paint) == CRETURN_FAILURE)
-        return (CRETURN_FAILURE);
     if (draw_file_menu(paint) == CRETURN_FAILURE)
+        return (CRETURN_FAILURE);
+    if (check_drawing(paint) == CRETURN_FAILURE)
         return (CRETURN_FAILURE);
     sfRenderWindow_display(paint->window->win);
 

@@ -11,7 +11,7 @@
     #include "constants.h"
     #include "paint.h"
 
-    paint_t *init_paint(void);
+    paint_t *init_paint(int argc, char *argv[]);
 
     return_code_t init_buttons(paint_t *paint);
 

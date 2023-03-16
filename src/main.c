@@ -45,13 +45,10 @@ return_code_t destroy_paint(paint_t *paint)
 
 int main(int argc, char *argv[], char *envp[])
 {
-    (void)argc;
-    (void)argv;
-
-    if (handle_errors(envp) == CRETURN_FAILURE)
+    if (handle_errors(argc, envp) == CRETURN_FAILURE)
         return (CEXIT_FAILURE);
 
-    paint_t *paint = init_paint();
+    paint_t *paint = init_paint(argc, argv);
     if (!paint) return (CEXIT_FAILURE);
 
     if (start_paint(paint) == CRETURN_FAILURE)

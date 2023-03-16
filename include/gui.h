@@ -31,6 +31,7 @@
         button_t **buttons;
         sfTexture **textures;
         sfFont *font;
+        sfText **texts;
     } gui_t;
 
 #endif /* !GUI_H_ */
