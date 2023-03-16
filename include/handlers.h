@@ -10,23 +10,22 @@
 
     /* LOCAL INCLUDES */
     #include "constants.h"
-
-    /**
-     * @brief Handle arguments of the program.
-     *
-     * @param argc Arguments count.
-     * @param argv Arguments vector.
-     * @return int 0 if handling was successful, -1 otherwise.
-     */
-    return_code_t handle_args(int argc, char *argv[]);
+    #include "paint.h"
 
     /**
      * @brief Handle errors of the program.
      *
-     * @param argc Arguments count.
-     * @param argv Arguments vector.
+     * @param envp Arguments vector.
      * @return int 0 if handling was successful, -1 otherwise.
      */
-    return_code_t handle_errors(int argc, char *argv[]);
+    return_code_t handle_errors(char *envp[]);
+
+    /**
+     * @brief Handle the window events.
+     *
+     * @param paint Paint structure.
+     * @return int 0 if handling was successful, -1 otherwise.
+     */
+    return_code_t handle_events(paint_t *paint);
 
 #endif
