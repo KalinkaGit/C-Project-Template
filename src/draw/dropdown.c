@@ -8,6 +8,7 @@
 #include "constants.h"
 #include "paint.h"
 #include <SFML/Graphics/Color.h>
+#include <SFML/Graphics/Text.h>
 
 return_code_t draw_dropdown(paint_t *paint)
 {
@@ -46,4 +47,27 @@ return_code_t draw_edit_dropdown(paint_t *paint)
             sfColor_fromRGB(255, 255, 255));
     }
     draw_edit_style(paint); return (CRETURN_SUCCESS);
+}
+
+return_code_t draw_help(paint_t *paint)
+{
+    if (!paint) return (CRETURN_FAILURE);
+
+    sfText *help = sfText_create();
+    sfText_setString(help, "How to use: DRAW\nLogin:");
+    sfText_setFont(help, paint->gui->font);
+    sfText_setColor(help, sfColor_fromRGB(255, 255, 255));
+    sfText_setCharacterSize(help, 30);
+    sfText_setPosition(help, (sfVector2f){10, 40});
+    sfRenderWindow_drawText(paint->window->win, help, NULL);
+    sfText_destroy(help);
+    sfText *login = sfText_create();
+    sfText_setString(login, paint->login);
+    sfText_setFont(login, paint->gui->font);
+    sfText_setColor(login, sfColor_fromRGB(255, 255, 255));
+    sfText_setCharacterSize(login, 30);
+    sfText_setPosition(login, (sfVector2f){100, 76});
+    sfRenderWindow_drawText(paint->window->win, login, NULL);
+    sfText_destroy(login);
+    return (CRETURN_SUCCESS);
 }

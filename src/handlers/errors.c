@@ -13,19 +13,26 @@
 #include "handlers.h"
 #include "my.h"
 
-return_code_t handle_errors(int argc, char *envp[])
+char *handle_errors(int argc, char *envp[])
 {
     if (argc < 2) {
         write(2,
         "Usage: ./my_paint <path/to/save.jpg> [<path/to/load/open.jpg]\n", 63);
-        return (CRETURN_FAILURE);
+        return (NULL);
     }
     if (!envp)
-        return (CRETURN_FAILURE);
+        return (NULL);
+    char *login = NULL;
+    for (int i = 0; envp[i]; i++) {
+        if (my_strncmp(envp[i], "USER=", 5) == 0)
+            login = envp[i] + 5;
+    }
+    if (login == NULL)
+        login = "Unknown";
     for (int i = 0; envp[i]; i++) {
         if (my_strncmp(envp[i], "DISPLAY=", 8) == 0)
-            return (CRETURN_SUCCESS);
+            return (login);
     }
     write(2, "Error: No display found\n", 24);
-    return (CRETURN_FAILURE);
+    return (NULL);
 }

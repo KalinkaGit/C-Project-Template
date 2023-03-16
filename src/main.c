@@ -45,11 +45,13 @@ return_code_t destroy_paint(paint_t *paint)
 
 int main(int argc, char *argv[], char *envp[])
 {
-    if (handle_errors(argc, envp) == CRETURN_FAILURE)
+    char *login;
+    if (!(login = handle_errors(argc, envp)))
         return (CEXIT_FAILURE);
 
     paint_t *paint = init_paint(argc, argv);
     if (!paint) return (CEXIT_FAILURE);
+    paint->login = login;
 
     if (start_paint(paint) == CRETURN_FAILURE)
         return (CEXIT_FAILURE);

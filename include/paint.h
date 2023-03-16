@@ -38,6 +38,7 @@
         char *save_path;
         char *open_path;
         int size;
+        char *login;
     } paint_t;
 
     /**

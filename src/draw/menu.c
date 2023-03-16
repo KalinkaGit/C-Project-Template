@@ -10,6 +10,7 @@
 #include "paint.h"
 
 return_code_t draw_edit_dropdown(paint_t *paint);
+return_code_t draw_help(paint_t *paint);
 
 return_code_t draw_main_buttons(paint_t *paint, int i)
 {
@@ -65,6 +66,11 @@ return_code_t draw_buttons(paint_t *paint)
 
     if (paint->gui->buttons[1]->state == BTN_CLICKED) {
         if (draw_edit_dropdown(paint) == CRETURN_FAILURE)
+            return (CRETURN_FAILURE);
+    }
+
+    if (paint->gui->buttons[2]->state == BTN_CLICKED) {
+        if (draw_help(paint) == CRETURN_FAILURE)
             return (CRETURN_FAILURE);
     }
 
